@@ -1,4 +1,4 @@
-# Adversarial-Attacks-PyTorch
+# Adverserial-Multi-Teacher-knowledge-Distillation
 
 <p>
   <a href="https://github.com/Harry24k/adversarial-attacks-pytorch/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/Harry24k/adversarial-attacks-pytorch?&color=brightgreen" /></a>
@@ -77,89 +77,6 @@ pip install -e .
 
 
 
-### :rocket: Demos
-
-* **White-box Attack on CIFAR10** ([code](https://github.com/Harry24k/adversarial-attacks-pytorch/blob/master/demo/White-box%20Attack%20on%20CIFAR10.ipynb), [nbviewer](https://nbviewer.jupyter.org/github/Harry24k/adversarial-attacks-pytorch/blob/master/demo/White-box%20Attack%20on%20CIFAR10.ipynb))
-* **White-box Attack on ImageNet** ([code](https://github.com/Harry24k/adversarial-attacks-pytorch/blob/master/demo/White-box%20Attack%20on%20ImageNet.ipynb), [nbviewer](https://nbviewer.jupyter.org/github/Harry24k/adversarial-attacks-pytorch/blob/master/demo/White-box%20Attack%20on%20ImageNet.ipynb))
-* **Transfer Attack on CIFAR10** ([code](https://github.com/Harry24k/adversarial-attacks-pytorch/blob/master/demo/Transfer%20Attack%20on%20CIFAR10.ipynb), [nbviewer](https://nbviewer.jupyter.org/github/Harry24k/adversarial-attacks-pytorch/blob/master/demo/Transfer%20Attack%20on%20CIFAR10.ipynb))
-
-
-### Torchattacks supports following functions:
-
-**Targeted mode**
-
-* Random target label:
-```python
-# random labels as target labels.
-atk.set_mode_targeted_random()
-```
-
-* Least likely label:
-```python
-# label with the k-th smallest probability used as target labels.
-atk.set_mode_targeted_least_likely(kth_min)
-```
-
-* By custom function:
-```python
-# label from mapping function
-atk.set_mode_targeted_by_function(target_map_function=lambda images, labels:(labels+1)%10)
-```
-
-* By label:
-```python
-atk.set_mode_targeted_by_label(quiet=True)
-# shift all class loops one to the right, 1=>2, 2=>3, .., 9=>0
-target_labels = (labels + 1) % 10
-adv_images = atk(images, target_labels)
-```
-
-* Return to default:
-```python
-atk.set_mode_default()
-```
-
-**Save adversarial images**
-
-```python
-# Save
-atk.save(data_loader, save_path="./data.pt", verbose=True)
-  
-# Load
-adv_loader = atk.load(load_path="./data.pt")
-```
-
-**Training/Eval during attack**
-
-```python
-# For RNN-based models, we cannot calculate gradients with eval mode.
-# Thus, it should be changed to the training mode during the attack.
-atk.set_training_mode(model_training=False, batchnorm_training=False, dropout_training=False)
-```
-
-
-**Make a set of attacks**
-
-* Strong attacks
-```python
-atk1 = torchattacks.FGSM(model, eps=8/255)
-atk2 = torchattacks.PGD(model, eps=8/255, alpha=2/255, iters=40, random_start=True)
-atk = torchattacks.MultiAttack([atk1, atk2])
-```
-
-* Binary search for CW
-```python
-atk1 = torchattacks.CW(model, c=0.1, steps=1000, lr=0.01)
-atk2 = torchattacks.CW(model, c=1, steps=1000, lr=0.01)
-atk = torchattacks.MultiAttack([atk1, atk2])
-```
-
-* Random restarts
-```python
-atk1 = torchattacks.PGD(model, eps=8/255, alpha=2/255, iters=40, random_start=True)
-atk2 = torchattacks.PGD(model, eps=8/255, alpha=2/255, iters=40, random_start=True)
-atk = torchattacks.MultiAttack([atk1, atk2])
-```
 
 
 
@@ -329,15 +246,7 @@ To push further, I introduce [**Rai-toolbox**](https://scholar.google.com/schola
 
 
 ## Citation
-If you use this package, please cite the following BibTex ([SemanticScholar](https://www.semanticscholar.org/paper/Torchattacks-%3A-A-Pytorch-Repository-for-Adversarial-Kim/1f4b3283faf534ef92d7d7fa798b26480605ead9), [GoogleScholar](https://scholar.google.com/scholar?cluster=10203998516567946917&hl=ko&as_sdt=2005&sciodt=0,5)):
-
-```
-@article{kim2020torchattacks,
-  title={Torchattacks: A pytorch repository for adversarial attacks},
-  author={Kim, Hoki},
-  journal={arXiv preprint arXiv:2010.01950},
-  year={2020}
-}
+If you use this package, please cite the following BibTex 
 ```
 
 
