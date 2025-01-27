@@ -32,10 +32,7 @@ adv_images = atk(images, labels)
 
 1. [Requirements and Installation](#Requirements-and-Installation)
 2. [Getting Started](#Getting-Started)
-3. [Performance Comparison](#Performance-Comparison)
-5. [Citation](#Citation)
-7. [Contribution](#Contribution)
-8. [Recommended Sites and Packages](#Recommended-Sites-and-Packages)
+3. [Citation](#Citation)
 
 
 
